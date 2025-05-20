@@ -7,7 +7,6 @@ import Header from "@/components/Header";
 import "./globals.css";
 
 const raleway = Raleway({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
@@ -25,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${raleway.variable} antialiased`}>
+      <body className={`${raleway.className} antialiased`}>
         <Header />
         {children}
         <Footer />
