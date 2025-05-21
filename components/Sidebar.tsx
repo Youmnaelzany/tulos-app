@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { headerData } from "@/constants";
 
 import Logo from "./Logo";
+import SocialMediaLinks from "./SocialMediaLinks";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -25,14 +26,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         transition={{ duration: 0.4, delay: 0.3 }}
         className="bg-darkColor flex h-full max-w-96 min-w-72 flex-col gap-6 border-r-2 border-r-white p-10 text-white/70"
       >
+        {/* Logo & Close Button */}
         <div className="flex items-center justify-between">
+          {/* Logo */}
           <button onClick={onClose}>
             <Logo className="text-white">Tulos</Logo>
           </button>
+          {/* Close Button */}
           <button className="" onClick={onClose}>
             <X className="hoverEffect size-7 text-white hover:text-red-500" />
           </button>
         </div>
+        {/* Navigation Links */}
         <div className="flex flex-col gap-3.5 text-base font-semibold tracking-wide">
           {headerData.map((item) => (
             <Link
@@ -45,6 +50,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             </Link>
           ))}
         </div>
+        {/* Social Links */}
+        <SocialMediaLinks />
       </motion.div>
     </div>
   );
