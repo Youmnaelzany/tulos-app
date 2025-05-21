@@ -1,3 +1,9 @@
+import Link from "next/link";
+
+import { ClerkLoaded, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { ListOrdered } from "lucide-react";
+
 import CartIcon from "./CartIcon";
 import Container from "./Container";
 import HeaderMenu from "./HeaderMenu";
@@ -6,7 +12,8 @@ import MobileMenu from "./MobileMenu";
 import SearchBar from "./Searchbar";
 
 <CartIcon />;
-const Header = () => {
+const Header = async () => {
+  const user = await currentUser();
   return (
     <header className="border-b border-b-gray-400 bg-white py-5">
       <Container className="text-lightColor flex items-center justify-between gap-7">
@@ -24,11 +31,26 @@ const Header = () => {
           {/* Cart Icon */}
           <CartIcon />
           {/* Clerk */}
-          <div className="">
-            <button className="font hover:text-darkColor hoverEffect text-sm font-semibold">
-              Login
-            </button>
-          </div>
+          <ClerkLoaded>
+            <SignedIn>
+              {/* List Orders */}
+              <Link href={"/orders"} className="group relative">
+                <ListOrdered className="group-hover:text-darkColor hoverEffect size-5" />
+                <span className="bg-darkColor absolute -top-1 -right-1 flex size-3.5 items-center justify-center rounded-full text-xs font-semibold text-white">
+                  0
+                </span>
+              </Link>
+              {/* User Button */}
+              <UserButton />
+            </SignedIn>
+            {!user && (
+              <SignInButton mode="modal">
+                <button className="font hover:text-darkColor hoverEffect text-sm font-semibold">
+                  Login
+                </button>
+              </SignInButton>
+            )}
+          </ClerkLoaded>
         </div>
       </Container>
     </header>
